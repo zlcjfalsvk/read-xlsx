@@ -1,9 +1,18 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { readFirstSheet } from './src/index';
+import { readSheet, XlsxType } from './src/index';
+import { BeforeType, AfterType } from './src/type/type';
+import { BeforeTypeDto } from './src/dto/beforeType.dto';
+import { AfterTypeDto } from './src/dto/afterType.dto';
 
 const file = fs.readFileSync(path.join(__dirname, 'resource/data.xlsx'));
-const data = readFirstSheet(file);
+const data: XlsxType[] = readSheet(file);
 
-console.log(data);
+data.forEach((item) => {
+  const beforeData: BeforeType = new BeforeTypeDto(item);
+  const afterData: AfterType = item.afterId ? new AfterTypeDto(item) : undefined;
+
+  console.log(beforeData);
+  console.log(afterData);
+});

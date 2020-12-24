@@ -1,1 +1,2 @@
-export * from './reat-sheet';
+export * from './type';
+export * from './read-sheet';
